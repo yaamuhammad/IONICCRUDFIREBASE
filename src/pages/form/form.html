@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar>
+    	<ion-title> {{ title }} </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>id</ion-label>
+            <ion-input type="judul" [(ngModel)] = "song.id" ></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>Title</ion-label>
+            <ion-input type="penerbit" [(ngModel)] = "song.title" ></ion-input>
+        </ion-item>
+        <ion-item text-center>
+            <button ion-button round style="min-width: 200px; padding: 10px 16px" (click) = "save()">Save</button>
+            <br/>
+            <button ion-button round style="min-width: 200px; padding: 10px 16px" (click) = "deleteBook()">Delete</button>
+        </ion-item>
+    </ion-list>
+</ion-content>
