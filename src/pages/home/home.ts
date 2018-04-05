@@ -13,21 +13,17 @@ export class HomePage {
 	songs: Observable<any[]>;
 
     constructor(public navCtrl: NavController, public afDB: AngularFireDatabase) {
-    	this.songs = afDB.list('/songs').valueChanges();
-    }
-
-
-    ionViewDidEnter() {
-    	// console.log("okokkkjjjjj")
-    	// this.afDB.list('/songs/').update('3', {
-     //        title : "songs 3"
-     //    }).then(()=>{
-     //        console.log("horeeeeeeeeeeeeeeeeeeee");
-     //    });
+        this.songs = afDB.list('/songs').snapshotChanges().map(changes => {
+            return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        });
     }
 
     add() {
         this.navCtrl.push("FormPage")
+    }
+
+    edit(song) {
+        this.navCtrl.push("FormPage", {song: song})
     }
 
 }

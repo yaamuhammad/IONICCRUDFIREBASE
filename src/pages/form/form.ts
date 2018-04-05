@@ -14,22 +14,34 @@ export class FormPage {
         id: '',
         title: '',
     }
+    editsong:any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public afDB: AngularFireDatabase) {
-    
+        this.editsong = this.navParams.get('song')
     }
 
-    ionViewDidLoad() {
-      console.log('ionViewDidLoad FormPage');
+    ionViewDidLoad() { 
+        if (this.editsong) {
+            this.song = this.editsong
+        }
     }
 
     save() {
-        this.afDB.list('/songs/').update(this.song.id, {
-            id : this.song.id,
-            title : this.song.title
-        }).then(()=>{
-            console.log("horeeeeeeeeeeeeeeeeeeee");
-        });
+        if (this.editsong) {
+            this.afDB.list('/songs/').update(this.editsong.key, {
+                id : this.song.id,
+                title : this.song.title
+            }).then(()=>{
+                console.log("update berhasil");
+            }).catch(e=>console.log(e));
+        } else {
+            this.afDB.list('/songs/').push({
+                id : this.song.id,
+                title : this.song.title
+            }).then(()=>{
+                console.log("simpan data baru berhasil");
+            });
+        }
 
         this.navCtrl.pop();
     }

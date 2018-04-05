@@ -8,8 +8,8 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item class="text" *ngFor="let item of songs | async">
-      {{item | json}}
+    <ion-item class="text" *ngFor="let song of songs | async" (click)="edit(song)">
+      {{song.title}}
     </ion-item>
   </ion-list>
 
